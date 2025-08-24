@@ -1,0 +1,5 @@
+# Python dependencies for HashBash Beta
+
+# Tkinter ships with Python on most platforms; install python3-tk via your OS package manager if needed.
+
+tkinterdnd2>=0.3.0
