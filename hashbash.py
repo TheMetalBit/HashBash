@@ -23,7 +23,7 @@ def launch_hashbash_gui():
 def show_splash():
     """Blocking splash window with ASCII art and a Continue button."""
     splash = Tk()
-    splash.title("HashBash - Bash the HASH!!!")
+    splash.title("#HashBash - Bash the HASH!!!")
     splash.configure(bg="black")
 
     # Center the window
@@ -31,10 +31,15 @@ def show_splash():
     ww, wh = 900, 900
     sw = splash.winfo_screenwidth()
     sh = splash.winfo_screenheight()
-    x = (sw - ww) //2
-    y = (sh - wh) //3
+    x = (sw - ww) // 2
+    y = (sh - wh) // 3
     splash.geometry(f"{ww}x{wh}+{x}+{y}")
     splash.resizable(False, False)
+
+    # Use grid for predictable layout (art expands, button fixed at bottom)
+    splash.grid_rowconfigure(0, weight=1)
+    splash.grid_rowconfigure(1, weight=0)
+    splash.grid_columnconfigure(0, weight=1)
 
     # ASCII art (hammer smashing the #)
     ascii_art = r"""
@@ -50,34 +55,35 @@ def show_splash():
  .++=  =++..++:  =+= .-+++++-. ++=  =++..+++++++. =++. .++=.:=+++++=. =+-  -++  
   ::.  ::: .::.  .::  .:::::   ::.  .::  :::::::  :::   :::  .::::::  :::  .::  
                                         .                                       
-                                   .:---:.                                      
+                                   .:---:.           BASH da' HASH              
                                 :-==-.                                          
                             .:==+=:.                               .::          
                           :-====:                            ..::-===-:         
-                        :======.                        ..:--==--:..  ..        
-                      .-=======.                  ..:--==--::..       .         
-                      :=========            .::-====--:..       .....           
-                   .   :========:     ..:---==-::...      ....                  
-                   .   .=========:  :---::...       ....                        
-                    .   -=========- ..       ....                               
-                     ...:==========.    ...                                     
-                     ..  .=========-                                            
-                      .   :========-.                                           
-                       .   :----:. .                                            
-               .--.     .....  .--.:.                                           
-              .-=-    :.  . ..  :=::-.                                          
-          ....:==-....---:.  .. .-====-                                         
-         :+=============--: ...:--=====-                                        
-         .:::-===:::::==-:. ...--====---.                                       
-             -==-    :--.    .:--::.....                                        
-            .===.    -==      :....                                             
-        ::::-===:::::===-:::       .  .                                         
-        =+=================-   .    . .                                         
-        ...:===:....===...     .. .                                             
-           :==-    .==-    ..:  . ..                                            
-           :--:    .--:                                                         
-                                                                                                              
+                       .:======.                        ..:--==--:..  ..        
+                     ..-=======.                  ..:--==--::..       .         
+                    , :=========            .::-====--:..       .....'          
+                   .   :========:     ..:---==-::...      ....''                
+                   .   .=========:'.:---::...       ....''                      
+                    .   -=========-          ....'''                            
+         `  .       ...:==========... ....''                                    
+            .. .     ..  .=========-'''                                         
+                *`    .   :========-.                                           
+            ` $  ''    .   :----:. .                                            
+               .--. .   .....  .--.:.                                           
+              .-=-          ..  :=::-.          HashBash GUI ver. 1.152         
+          ....:==-....--     .. .-====-                 made by                 
+         :+=============--  ...:--=====-           #The Metal->Bit              
+         .:::-===:::::==-:  ...--====---.                                       
+             -==-    :--.    .:::::::::::         --Special Thanks--            
+            .===.    -==      ::........'          [CBKB] DeadlyData            
+        ::::-===:::::===-::     * .  .  *                                       
+        =+=================- * .   $ . .                                        
+        ...:===:....===...     ..* . $ *.                                       
+           :==-    .==-    ..:  . ..$ .  .  THIS SOFTWARE IS FOR EDUCATIONAL    
+           :--:    .--:   .. ..* ' . #=$  $          PURPOSES ONLY.             
+                          ` ` ``   `  `  `                                      
 """
+        # Auto-scale font and render ANSI art into a Text widget
     mono = tkfont.nametofont("TkFixedFont")
     try:
         mono.configure(size=14)
@@ -88,12 +94,12 @@ def show_splash():
         splash,
         text=ascii_art,
         bg="black",
-        fg="lime",
+        fg="#00ff00",
         font=mono,
         justify=CENTER,
-        anchor="center"
+        anchor="n"
     )
-    lbl.pack(fill=BOTH, expand=True, padx=20, pady=(20, 10))
+    lbl.grid(row=0, column=0, sticky="nsew", padx=20, pady=(20, 0))
 
     btn = Button(
         splash,
@@ -105,7 +111,23 @@ def show_splash():
         padx=12,
         pady=6
     )
-    btn.pack(pady=(0, 20))
+    btn.grid(row=1, column=0, sticky="ew", padx=20, pady=20)
+
+    # Auto-adjust height so the art fits the screen and the Continue button stays visible
+    splash.update_idletasks()
+    try:
+        line_h = mono.metrics("linespace")
+    except Exception:
+        line_h = 16
+    lines = len(ascii_art.splitlines())
+    btn_h = btn.winfo_reqheight()
+    # Estimate content height: art lines + top padding + button + bottom padding + small fudge
+    content_h = (lines * max(1, line_h)) + 20 + btn_h + 20 + 40
+    max_h = sh - 80  # keep some margin from screen bottom
+    new_h = min(max(300, int(content_h)), int(max_h))
+    if new_h != wh:
+        y = (sh - new_h) // 3
+        splash.geometry(f"{ww}x{new_h}+{x}+{y}")
 
     # Keyboard shortcuts
     splash.bind("<Return>", lambda e: splash.destroy())
@@ -163,7 +185,7 @@ class HashcatGUI:
         Button(wl_frame, text="Select Wordlists", command=self.select_wordlists).pack(side=LEFT, fill=X, expand=True)
         Button(wl_frame, text="Remove Selected", command=lambda: self.remove_selected(self.wordlist_listbox, "wordlists")).pack(side=LEFT)
         Button(wl_frame, text="Remove All", command=lambda: self.remove_all(self.wordlist_listbox, "wordlists")).pack(side=LEFT)
-        self.wordlist_listbox = Listbox(content, selectmode=MULTIPLE, height=4, bg="black", fg="green")
+        self.wordlist_listbox = Listbox(content, selectmode=MULTIPLE, height=4, bg="black", fg="yellow")
         self.wordlist_listbox.pack(fill=X)
         self.register_drag_and_drop(self.wordlist_listbox, "wordlists")
 
@@ -173,7 +195,7 @@ class HashcatGUI:
         Button(rule_frame, text="Select Rules", command=self.select_rules).pack(side=LEFT, fill=X, expand=True)
         Button(rule_frame, text="Remove Selected", command=lambda: self.remove_selected(self.rule_listbox, "rules")).pack(side=LEFT)
         Button(rule_frame, text="Remove All", command=lambda: self.remove_all(self.rule_listbox, "rules")).pack(side=LEFT)
-        self.rule_listbox = Listbox(content, selectmode=MULTIPLE, height=4, bg="black", fg="green")
+        self.rule_listbox = Listbox(content, selectmode=MULTIPLE, height=4, bg="black", fg="red")
         self.rule_listbox.pack(fill=X)
         self.register_drag_and_drop(self.rule_listbox, "rules")
 
@@ -223,7 +245,7 @@ class HashcatGUI:
             fg="white",
             activebackground="black",
             activeforeground="white",
-            selectcolor="green",
+            selectcolor="red",
             state=NORMAL,
             takefocus=1,
             cursor="hand2",
