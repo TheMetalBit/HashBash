@@ -15,7 +15,6 @@ A lightweight, cross‑platform Tkinter frontend for **hashcat** with drag‑and
 * 🧹 New Session command cleanly stops and resets state
 * 🧲 Drag‑and‑drop for hashes/wordlists/rules (via `tkinterdnd2`)
 * 📝 Results automatically exported to `results/results.txt` and opened
-* 🧷 When a session is running, runtime config widgets are hidden to prevent accidental changes
 
 ---
 
@@ -43,8 +42,8 @@ A lightweight, cross‑platform Tkinter frontend for **hashcat** with drag‑and
 
 ```bash
 # 1) Clone
-git clone https://github.com/<you>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/TheMetalBit/HashBash.git
+cd /HashBash
 
 # 2) (Optional) Create a virtual environment
 python -m venv .venv
