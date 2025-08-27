@@ -71,9 +71,9 @@ source .venv/bin/activate
 
 ---
 
-## Running
+## Running - !!!ALWAYS RUN AS ROOT or ADMINISTRASTOR!!! or HashBash will fail!
 
-# (Note) - HashBash.py Should always be run from the current working Hashcat-x.x.x directory! 
+# (Note) - HashBash.py Should always be run from the current working Hashcat-x.x.x directory!
 ```bash
 python3 hashbash.py
 ```
