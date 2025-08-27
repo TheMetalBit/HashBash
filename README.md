@@ -167,3 +167,5 @@ Choose a license and add a `LICENSE` file (MIT, Apache-2.0, GPL-3.0, etc.).
 ## Contributing
 
 PRs and issues are welcome. Please avoid adding heavy dependencies; the goal is a small, portable GUI.
+
+Special thanks to - [CBKB] DeadlyData

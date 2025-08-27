@@ -138,7 +138,7 @@ def show_splash():
 class HashcatGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("#HashBash")
+        self.root.title("#HashBash v1.153 - made by #The Metal->Bit")
         self.root.configure(bg="black")
         self.jobs = []
         self.current_job = None
@@ -253,7 +253,7 @@ class HashcatGUI:
         )
         self.slow_cb.pack(anchor=W)
 
-        Button(content, text="Run Hashcat", command=self.load_jobs_from_hashes).pack(fill=X, pady=5)
+        Button(content, text="BASH the #HASH", command=self.load_jobs_from_hashes).pack(fill=X, pady=5)
 
         # Pause/Resume
         ctrl = Frame(content, bg="black")
