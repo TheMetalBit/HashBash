@@ -46,9 +46,12 @@ A lightweight, cross‑platform Tkinter frontend for **hashcat** with drag‑and
 # macOS (Homebrew): brew install hashcat
 # Debian/Ubuntu: sudo apt install hashcat
 
-# 2) For Nvidia GPU Acceleration be sure to install the proper version of Nvidia CUDA Developers Toolkit along for your Video Card! Also Be sure to have up-to-date Video Card Drivers INSTALLED!
+# 2) For Nvidia GPU Acceleration be sure to install the proper version of 
+# Nvidia CUDA Developers Toolkit along for your Video Card!
+# Also Be sure to have up-to-date Video Card Drivers INSTALLED!
 . .\Downloads\Nvidia\cuda_12.9.1_576.57_windows.exe
-# Older Video Cards will need deprecated or older versions of both Drivers and CUDA Dev Toolkits ALONG WITH VERSIONS OF HASHCAT!
+# Older Video Cards will need deprecated or older versions of both Drivers
+# and CUDA Dev Toolkits ALONG WITH VERSIONS OF HASHCAT!
 
 # 3) Install Python deps
 pip install -r requirements.txt
