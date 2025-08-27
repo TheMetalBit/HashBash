@@ -41,33 +41,42 @@ A lightweight, cross‑platform Tkinter frontend for **hashcat** with drag‑and
 ## Installation
 
 ```bash
-# 1) Clone
-git clone https://github.com/TheMetalBit/HashBash.git
-cd /HashBash
+# 1) Install hashcat (system-level)
+# Windows: use the official binary and add to PATH
+# macOS (Homebrew): brew install hashcat
+# Debian/Ubuntu: sudo apt install hashcat
 
-# 2) (Optional) Create a virtual environment
+# 2) For Nvidia GPU Acceleration be sure to install the proper version of Nvidia CUDA Developers Toolkit along for your Video Card! Also Be sure to have up-to-date Video Card Drivers INSTALLED!
+. .\Downloads\Nvidia\cuda_12.9.1_576.57_windows.exe
+# Older Video Cards will need deprecated or older versions of both Drivers and CUDA Dev Toolkits ALONG WITH VERSIONS OF HASHCAT!
+
+# 3) Install Python deps
+pip install -r requirements.txt
+
+# 4) Clone
+git clone https://github.com/TheMetalBit/HashBash.git
+cd \HashBash
+copy entire contents of \HashBash into your currently running C:\..\Hashcat-x.x.x directory. 
+--------------------------------
+# 5) (Optional) - Not nessesary, but Paranoia is sometimes good! To Create a Virtual Python Environment...
 python -m venv .venv
 # Windows
 . .venv\Scripts\activate
 # macOS/Linux
 source .venv/bin/activate
-
-# 3) Install Python deps
-pip install -r requirements.txt
-
-# 4) Install hashcat (system-level)
-# Windows: use the official binary and add to PATH
-# macOS (Homebrew): brew install hashcat
-# Debian/Ubuntu: sudo apt install hashcat
 ```
 
 ---
 
 ## Running
 
+# (Note) - HashBash.py Should always be run from the current working Hashcat-x.x.x directory! 
 ```bash
-python hashbash.py
+python3 hashbash.py
 ```
+# -Example running HashBash Windows Installation In Currently Running Hashcat Directory-
+# cd C:\Program Files\hashcat7.1.2
+# C:\Program Files\hashcat7.1.2>python3 hashbash.py
 
 * A splash window appears; press **Continue** (or hit **Enter/Space**).
 * Use **Select Hash Files**, **Select Wordlists**, and **Select Rules** to load inputs.

@@ -3,3 +3,6 @@
 # Tkinter ships with Python on most platforms; install python3-tk via your OS package manager if needed.
 
 tkinterdnd2>=0.3.0
+
+# !!!Nvidia GPU ACCELERATION be sure to install the following!!!
+# Relevent CUDA Toolkit and Drivers for Windows based on the type of video GPU Accelerator Card(s) installed.
