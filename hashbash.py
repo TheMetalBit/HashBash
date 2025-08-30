@@ -253,7 +253,7 @@ class HashcatGUI:
         )
         self.slow_cb.pack(anchor=W)
 
-        Button(content, text="BASH the #HASH", command=self.load_jobs_from_hashes).pack(fill=X, pady=5)
+        Button(content, text="Run HashCat", command=self.load_jobs_from_hashes).pack(fill=X, pady=5)
 
         # Pause/Resume
         ctrl = Frame(content, bg="black")
